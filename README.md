@@ -9,7 +9,7 @@ Khi chuyển một tài liệu thành slide, AI dễ vừa tóm tắt vừa quy�
 1. **Outline đầy đủ** từ tài liệu gốc (không tóm tắt). Dừng để người dùng đối chiếu và đánh dấu ý bắt buộc giữ (must-keep).
 2. **Khung slide có map**: mỗi slide lấy ý nào từ outline, ý nào chưa xếp được. Dừng để người dùng duyệt và quyết định giữ hay bỏ.
 3. **Giao khung đã duyệt cho skill tạo slide** theo một hợp đồng giao nhận: số slide cố định, mức bám nguồn, danh sách must-keep; nhận lại slide kèm nội dung chữ từng slide.
-4. **Đối chiếu outline-với-outline**: so nội dung slide đã dựng với outline gốc, báo ý khớp, ý bị rơi, ý bỏ có chủ đích.
+4. **Đối chiếu outline với outline**: so nội dung slide đã dựng với outline gốc, báo ý khớp, ý bị rơi, ý bỏ có chủ đích.
 5. **Người dùng chỉnh sửa thủ công.**
 
 ## Ranh giới

@@ -61,17 +61,17 @@ Nếu skill tạo slide có bước xác nhận cấu trúc hoặc danh sách sl
 
 Lưu ý quan trọng: không mặc định rằng skill tạo slide đã kiểm tra tính đầy đủ của nội dung so với tài liệu gốc. Việc kiểm tra này vẫn thuộc Bước 1, 2 và 4 của skill này và phải được thực hiện độc lập với skill tạo slide được sử dụng.
 
-Ràng buộc: Có thể rút gọn câu chữ để phù hợp với slide, nhưng không được bỏ bất kỳ ý nào trong danh sách must-keep ở Bước 1. Nếu người dùng yêu cầu “giữ nguyên văn”, phải giữ đầy đủ câu được yêu cầu, không tự ý cắt ngắn.
+Ràng buộc: có thể rút gọn câu chữ để phù hợp với slide, nhưng không được bỏ bất kỳ ý nào trong danh sách must-keep ở Bước 1. Nếu người dùng yêu cầu “giữ nguyên văn”, phải giữ đầy đủ câu được yêu cầu, không tự ý cắt ngắn.
 
-### Bước 4 - Đối chiếu outline với outline (không phải "kiểm tra tự do")
+### Bước 4 - Đối chiếu outline với outline (không phải “kiểm tra tự do”)
 
-Liệt kê toàn bộ nội dung **hiện có trong slide đã dựng*** thành một outline mới. Sau đó đối chiếu từng dòng với outline gốc ở Bước 1 để xác định những ý bị thiếu.
+Liệt kê toàn bộ nội dung **hiện có trong slide đã dựng** thành một outline mới. Sau đó đối chiếu từng dòng với outline gốc ở Bước 1 để xác định những ý bị thiếu.
 
 Đây là phép đối chiếu trực tiếp (diff), không phải yêu cầu AI tự kiểm tra xem có bỏ sót gì không. Lý do là cùng một AI có thể lặp lại điểm mù ban đầu nếu chỉ được yêu cầu tự rà soát. Vì vậy, quy trình dùng đối chiếu từng dòng thay vì dựa vào việc tự kiểm tra.
 
 Báo cáo rõ cho người dùng: ý nào khớp, ý nào bị thiếu, ý nào bị thiếu nhưng là do người dùng đã chủ động quyết định bỏ ở Bước 2.
 
-Bổ sung các ý bị thiếu ngoài chủ đích vào slide, sau đó thực hiện lại một lượt đối chiếu để xác nhận..
+Bổ sung các ý bị thiếu ngoài chủ đích vào slide, sau đó thực hiện lại một lượt đối chiếu để xác nhận.
 
 ### Bước 5 - Người dùng chỉnh sửa thủ công
 
