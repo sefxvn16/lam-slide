@@ -1,69 +1,74 @@
 # lam-slide
 
-Skill cho Claude giúp slide thuyết trình giữ đủ nội dung quan trọng so với tài liệu gốc. Skill chỉ lo phần nội dung, không có chức năng dựng file slide. Việc dựng file slide giao cho skill tạo slide mà bạn đang dùng.
+**English** | [Tiếng Việt](README.vi.md)
 
-## Skill làm gì
+A Claude skill that keeps presentation slides faithful to the source document, so important content does not get lost. The skill only handles content; it does not build slide files. Building the file is handed off to whichever slide-creation skill you already use.
 
-Khi chuyển một tài liệu thành slide, AI dễ vừa tóm tắt vừa quyết định cái gì lên slide trong cùng một lượt, và phần bị bỏ thì không hiện ra để người dùng thấy. Skill tách việc này thành 5 bước, có hai điểm dừng để người dùng duyệt:
+> The skill instructions (`SKILL.md`) are currently written in Vietnamese.
 
-1. **Outline đầy đủ** từ tài liệu gốc (không tóm tắt). Dừng để người dùng đối chiếu và đánh dấu ý bắt buộc giữ (must-keep).
-2. **Khung slide có map**: mỗi slide lấy ý nào từ outline, ý nào chưa xếp được. Dừng để người dùng duyệt và quyết định giữ hay bỏ.
-3. **Giao khung đã duyệt cho skill tạo slide** theo một hợp đồng giao nhận: số slide cố định, mức bám nguồn, danh sách must-keep; nhận lại slide kèm nội dung chữ từng slide.
-4. **Đối chiếu outline với outline**: so nội dung slide đã dựng với outline gốc, báo ý khớp, ý bị rơi, ý bỏ có chủ đích.
-5. **Người dùng chỉnh sửa thủ công.**
+## What it does
 
-## Ranh giới
+When turning a document into slides, an AI tends to summarize and decide what goes on the slides in a single pass, and whatever gets dropped never shows up for the user to notice. This skill splits the work into 5 steps, with two stop points for user review:
 
-- Skill **không** tự dựng file .pptx hay slide và không thay thế skill tạo slide.
-- Skill chọn skill tạo slide theo thứ tự: skill người dùng chỉ định → skill được nền tảng chọn mặc định trong số skill người dùng đã cài → skill tạo slide có sẵn mặc định trên nền tảng (nếu có) → hỏi người dùng. Nếu không có skill nào, skill giao khung slide dạng văn bản để người dùng tự dựng.
-- Skill không dùng cho slide sáng tạo tự do không có tài liệu gốc.
+1. **Full outline** of the source document (not a summary). Stop so the user can check it against the source and mark must-keep points.
+2. **Slide framework with an explicit map**: which outline points each slide covers, and which points have not been placed yet. Stop so the user can approve and decide what to keep or drop.
+3. **Hand the approved framework to a slide-creation skill** under a hand-off contract: fixed slide count, source fidelity level, must-keep list; receive the slides back together with the text of each slide.
+4. **Outline-to-outline comparison**: compare the content of the built slides with the original outline and report what matches, what was dropped, and what was dropped intentionally.
+5. **Manual editing by the user.**
 
-## Cấu trúc thư mục
+## Boundaries
+
+- The skill does **not** build .pptx files or slides itself, and does not replace a slide-creation skill.
+- It picks the slide-creation skill in this order: the skill the user names → the skill the platform selects by default among the user's installed skills → the platform's built-in slide skill (if any) → ask the user. If no skill is available, it hands over the slide framework as text for the user to build.
+- It is not meant for free-form creative slides that have no source document.
+
+## Folder structure
 
 ```
 lam-slide/
   SKILL.md
 README.md
+README.vi.md
 LICENSE.md
 ```
 
-## Cài đặt
+## Installation
 
-### Ứng dụng Claude (claude.ai, Claude desktop)
+### Claude apps (claude.ai, Claude desktop)
 
-1. Tải repo về, nén riêng thư mục `lam-slide` thành `lam-slide.zip` (file zip phải chứa thư mục `lam-slide` ở cấp ngoài cùng).
-2. Mở Claude, vào **Customize → Skills**, bấm **+** → **Create skill** → **Upload a skill** và chọn `lam-slide.zip`. Tên và vị trí menu có thể khác tùy phiên bản ứng dụng. Skill cần bật tính năng chạy mã (code execution).
-3. Kiểm tra skill `lam-slide` đã hiện trong danh sách và đang bật.
+1. Download the repo and zip the `lam-slide` folder on its own into `lam-slide.zip` (the zip must contain the `lam-slide` folder at its top level).
+2. Open Claude, go to **Customize → Skills**, click **+** → **Create skill** → **Upload a skill**, and choose `lam-slide.zip`. Menu names and locations may differ between app versions. Skills require code execution to be enabled.
+3. Check that `lam-slide` appears in the list and is turned on.
 
 ### Claude Code
 
-Chép thư mục `lam-slide` vào `~/.claude/skills/` (dùng cho mọi dự án) hoặc `.claude/skills/` của một dự án, rồi khởi động lại Claude Code.
+Copy the `lam-slide` folder into `~/.claude/skills/` (available in all projects) or into a project's `.claude/skills/`, then restart Claude Code.
 
-Bạn cần có sẵn một skill tạo slide (hoặc dùng skill có sẵn của nền tảng) để chạy Bước 3.
+You need a slide-creation skill (or the platform's built-in one) to run Step 3.
 
-## Cách dùng
+## Usage
 
-Skill kích hoạt khi bạn đưa tài liệu gốc và yêu cầu làm slide, hoặc gọi trực tiếp bằng `/lam-slide`. Nên gọi trực tiếp khi bạn cài nhiều skill liên quan đến slide và muốn chắc chắn quy trình này chạy. Ví dụ:
+The skill triggers when you provide a source document and ask for slides, or when you call it directly with `/lam-slide`. Calling it directly is recommended if you have several slide-related skills installed and want to be sure this workflow runs. Examples:
 
-- "Chuyển báo cáo này thành 12 slide cho buổi họp: …"
-- "/lam-slide Làm slide từ hai tài liệu đính kèm, giữ nguyên văn các con số."
+- "Turn this report into 12 slides for the meeting: …"
+- "/lam-slide Make slides from the two attached documents, keep all figures verbatim."
 
-## Giới hạn
+## Limitations
 
-- Quy trình chưa được kiểm chứng thực nghiệm. Các lý do thiết kế trong SKILL.md là giả thuyết.
-- Bước 4 cần nội dung chữ của từng slide. Nếu skill tạo slide không trả lại được và môi trường không đọc được file, bạn sẽ được nhờ cung cấp nội dung này.
-- Bước 4 tìm ý bị rơi so với outline gốc; nó không được thiết kế để phát hiện nội dung bị thêm vào.
+- The workflow has not been empirically validated. The design rationale in SKILL.md is a hypothesis.
+- Step 4 needs the text of each slide. If the slide-creation skill cannot return it and the environment cannot read the file, you will be asked to provide it.
+- Step 4 looks for points dropped from the original outline; it is not designed to detect content that was added.
 
-## Góp ý
+## Feedback
 
-Mọi góp ý xin gửi qua mục **Issues** của repo. Để dễ xử lý, nên ghi:
+Please send feedback through the repo's **Issues**. To make it easier to act on, include:
 
-- yêu cầu bạn đưa ra và loại tài liệu gốc (đã bỏ thông tin cá nhân hoặc thông tin mật);
-- skill tạo slide bạn dùng ở Bước 3;
-- kết quả bạn mong đợi và kết quả thực tế.
+- your request and the type of source document (with personal or confidential information removed);
+- the slide-creation skill you used in Step 3;
+- the result you expected and the result you got.
 
-Đặc biệt mong góp ý về: skill kích hoạt nhầm hoặc không kích hoạt, chỗ bàn giao ở Bước 3 bị lệch, Bước 4 bỏ lọt ý bị rơi, và chỗ hướng dẫn khó hiểu.
+Feedback is especially welcome on: the skill triggering when it should not (or not triggering), mismatches in the Step 3 hand-off, Step 4 missing dropped points, and instructions that are hard to follow.
 
-## Giấy phép
+## License
 
-Skill phát hành theo giấy phép **CC BY-NC 4.0**: dùng miễn phí cho mục đích phi thương mại, cần ghi nguồn. Muốn dùng thương mại, vui lòng liên hệ tác giả qua mục **Issues**. Xem [LICENSE.md](LICENSE.md).
+Released under **CC BY-NC 4.0**: free for non-commercial use with attribution. For commercial use, please contact the author via **Issues**. See [LICENSE.md](LICENSE.md).
